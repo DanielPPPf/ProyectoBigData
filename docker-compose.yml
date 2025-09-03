@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: deaths_postgres
+    environment:
+      POSTGRES_DB: deaths_analysis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+      - ./data:/data  # Para montar el CSV
+      - ./results:/results  # Para exportar resultados
+    networks:
+      - deaths_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d deaths_analysis"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  python_pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
+    container_name: deaths_pipeline
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=deaths_analysis
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres123
+      - DB_PORT=5432
+    volumes:
+      - ./scripts:/app/scripts
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./config:/app/config
+    networks:
+      - deaths_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - tools  # Solo se inicia manualmente
+    working_dir: /app
+    command: tail -f /dev/null  # Mantener contenedor vivo para ejecución manual
+
+volumes:
+  postgres_data:
+
+networks:
+  deaths_network:
+    driver: bridge
