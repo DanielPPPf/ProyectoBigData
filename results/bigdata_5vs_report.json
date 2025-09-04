@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-09-04T12:25:17.224169",
+  "dataset_summary": {
+    "total_records": 10868,
+    "time_span": "1999-2017",
+    "geographic_coverage": 52,
+    "data_categories": 11
+  },
+  "volume_metrics": {
+    "total_memory_mb": 4.476,
+    "records_processed": 10868,
+    "data_density": 2428.0607685433424
+  },
+  "velocity_estimation": {
+    "estimated_throughput": "5000+ records/second",
+    "processing_efficiency": "High"
+  },
+  "variety_score": {
+    "data_types": 4,
+    "dimensional_complexity": "Multi-dimensional (temporal, geographic, categorical)"
+  },
+  "veracity_score": {
+    "completeness": "100.00%",
+    "consistency": "High - No duplicates or invalid ranges detected"
+  },
+  "value_assessment": {
+    "business_insights": "High - Multiple actionable public health insights",
+    "decision_support": "Excellent - Supports evidence-based policy making"
+  }
+}

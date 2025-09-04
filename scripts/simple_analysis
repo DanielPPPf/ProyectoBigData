@@ -1,0 +1,197 @@
+#!/usr/bin/env python3
+"""
+Script Simple de Análisis - Causas de Muerte EEUU
+Version limpia sin errores de sintaxis
+"""
+
+import pandas as pd
+from sqlalchemy import create_engine
+import os
+import sys
+from datetime import datetime
+
+def get_db_connection():
+    """Crear conexión a PostgreSQL usando SQLAlchemy"""
+    try:
+        engine = create_engine('postgresql://postgres:postgres123@localhost:5432/deaths_analysis')
+        return engine
+    except Exception as e:
+        print(f"Error conectando a la base de datos: {e}")
+        print("Asegúrate de que PostgreSQL esté corriendo con: make up")
+        return None
+
+def run_quick_analysis():
+    """Ejecutar análisis rápido de los datos"""
+    
+    engine = get_db_connection()
+    if not engine:
+        sys.exit(1)
+    
+    try:
+        print("=== ANÁLISIS RÁPIDO DE DATOS ===")
+        print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print("-" * 50)
+        
+        # 1. Estadísticas generales
+        query1 = """
+        SELECT 
+            'Total registros' as metric,
+            COUNT(*)::text as value
+        FROM clean_data.fact_deaths
+        UNION ALL
+        SELECT 
+            'Estados únicos',
+            COUNT(DISTINCT state_id)::text
+        FROM clean_data.fact_deaths
+        UNION ALL
+        SELECT 
+            'Causas únicas',
+            COUNT(DISTINCT cause_id)::text
+        FROM clean_data.fact_deaths
+        UNION ALL
+        SELECT 
+            'Rango de años',
+            MIN(year)::text || ' - ' || MAX(year)::text
+        FROM clean_data.fact_deaths
+        """
+        
+        df1 = pd.read_sql(query1, engine)
+        print("ESTADÍSTICAS GENERALES:")
+        for _, row in df1.iterrows():
+            print(f"  {row['metric']}: {row['value']}")
+        print()
+        
+        # 2. Top 5 causas de muerte (total nacional)
+        query2 = """
+        SELECT 
+            dc.cause_name,
+            SUM(fd.deaths) as total_deaths,
+            AVG(fd.age_adjusted_death_rate)::numeric(10,1) as avg_rate
+        FROM clean_data.fact_deaths fd
+        JOIN clean_data.dim_causes dc ON fd.cause_id = dc.cause_id
+        JOIN clean_data.dim_states ds ON fd.state_id = ds.state_id
+        WHERE ds.is_national_aggregate = true
+          AND dc.is_all_causes = false
+        GROUP BY dc.cause_name
+        ORDER BY total_deaths DESC
+        LIMIT 5
+        """
+        
+        df2 = pd.read_sql(query2, engine)
+        print("TOP 5 CAUSAS DE MUERTE (NACIONAL):")
+        for i, row in df2.iterrows():
+            print(f"  {i+1}. {row['cause_name']}: {row['total_deaths']:,} muertes (tasa promedio: {row['avg_rate']})")
+        print()
+        
+        # 3. Tendencia de mortalidad total por año
+        query3 = """
+        SELECT 
+            fd.year,
+            fd.deaths as total_deaths,
+            fd.age_adjusted_death_rate
+        FROM clean_data.fact_deaths fd
+        JOIN clean_data.dim_causes dc ON fd.cause_id = dc.cause_id
+        JOIN clean_data.dim_states ds ON fd.state_id = ds.state_id
+        WHERE ds.is_national_aggregate = true
+          AND dc.cause_name = 'All causes'
+        ORDER BY fd.year
+        """
+        
+        df3 = pd.read_sql(query3, engine)
+        print("TENDENCIA DE MORTALIDAD TOTAL:")
+        print("Año\tMuertes\t\tTasa Ajustada")
+        print("-" * 40)
+        for _, row in df3.iterrows():
+            print(f"{row['year']}\t{row['total_deaths']:,}\t\t{row['age_adjusted_death_rate']}")
+        
+        # Calcular cambio porcentual
+        if len(df3) > 1:
+            inicio = df3.iloc[0]
+            final = df3.iloc[-1]
+            cambio_muertes = ((final['total_deaths'] - inicio['total_deaths']) / inicio['total_deaths']) * 100
+            cambio_tasa = ((final['age_adjusted_death_rate'] - inicio['age_adjusted_death_rate']) / inicio['age_adjusted_death_rate']) * 100
+            
+            print(f"\nCambio {int(inicio['year'])}-{int(final['year'])}:")
+            print(f"  Muertes totales: {cambio_muertes:+.1f}%")
+            print(f"  Tasa ajustada: {cambio_tasa:+.1f}%")
+        print()
+        
+        # 4. Estados con mayor y menor mortalidad
+        query4 = """
+        SELECT 
+            ds.state_name,
+            AVG(fd.age_adjusted_death_rate)::numeric(10,1) as avg_death_rate
+        FROM clean_data.fact_deaths fd
+        JOIN clean_data.dim_states ds ON fd.state_id = ds.state_id
+        JOIN clean_data.dim_causes dc ON fd.cause_id = dc.cause_id
+        WHERE ds.is_national_aggregate = false
+          AND dc.cause_name = 'All causes'
+        GROUP BY ds.state_name
+        ORDER BY avg_death_rate DESC
+        """
+        
+        df4 = pd.read_sql(query4, engine)
+        print("ESTADOS CON MAYOR/MENOR MORTALIDAD:")
+        print("\nTop 5 - Mayor mortalidad:")
+        for i, row in df4.head(5).iterrows():
+            print(f"  {i+1}. {row['state_name']}: {row['avg_death_rate']}")
+        
+        print("\nTop 5 - Menor mortalidad:")
+        bottom_5 = df4.tail(5).reset_index(drop=True)
+        for i, row in bottom_5.iterrows():
+            print(f"  {i+1}. {row['state_name']}: {row['avg_death_rate']}")
+        
+        print("\n" + "=" * 50)
+        print("Análisis completado exitosamente")
+        
+    except Exception as e:
+        print(f"Error durante el análisis: {e}")
+        sys.exit(1)
+
+def export_summary_csv():
+    """Exportar resumen a CSV"""
+    engine = get_db_connection()
+    if not engine:
+        return
+    
+    try:
+        os.makedirs('results', exist_ok=True)
+        
+        query = """
+        SELECT 
+            fd.year,
+            dc.cause_name,
+            fd.deaths,
+            fd.age_adjusted_death_rate
+        FROM clean_data.fact_deaths fd
+        JOIN clean_data.dim_states ds ON fd.state_id = ds.state_id
+        JOIN clean_data.dim_causes dc ON fd.cause_id = dc.cause_id
+        WHERE ds.is_national_aggregate = true
+        ORDER BY fd.year, fd.deaths DESC
+        """
+        
+        df = pd.read_sql(query, engine)
+        filename = f"results/national_summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+        df.to_csv(filename, index=False)
+        print(f"Resumen nacional exportado a: {filename}")
+        
+    except Exception as e:
+        print(f"Error exportando CSV: {e}")
+
+def main():
+    """Función principal"""
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '--export':
+            export_summary_csv()
+        elif sys.argv[1] == '--help':
+            print("Uso:")
+            print("  python scripts/simple_analysis_clean.py           # Análisis completo")
+            print("  python scripts/simple_analysis_clean.py --export  # Exportar a CSV")
+            print("  python scripts/simple_analysis_clean.py --help    # Mostrar ayuda")
+        else:
+            print("Opción no reconocida. Usa --help para ver opciones")
+    else:
+        run_quick_analysis()
+
+if __name__ == '__main__':
+    main()

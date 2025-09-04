@@ -1,0 +1,51 @@
+year,state_name,cause_name,predicted_deaths,predicted_rate,model_type
+2018,United States,Alzheimer's disease,115043.7017543856,29.926315789473847,linear_regression
+2019,United States,Alzheimer's disease,118680.61929824576,30.528947368421314,linear_regression
+2020,United States,Alzheimer's disease,122317.53684210498,31.131578947368553,linear_regression
+2021,United States,Alzheimer's disease,125954.45438596513,31.73421052631602,linear_regression
+2022,United States,Alzheimer's disease,129591.37192982435,32.33684210526326,linear_regression
+2018,United States,CLRD,157897.17543859687,40.52982456140347,linear_regression
+2019,United States,CLRD,160029.3824561406,40.32859649122804,linear_regression
+2020,United States,CLRD,162161.58947368432,40.12736842105261,linear_regression
+2021,United States,CLRD,164293.79649122804,39.926140350877176,linear_regression
+2022,United States,CLRD,166426.00350877177,39.724912280701744,linear_regression
+2018,United States,Cancer,599597.9122807011,150.03508771929774,linear_regression
+2019,United States,Cancer,602485.8929824559,147.3307017543857,linear_regression
+2020,United States,Cancer,605373.8736842098,144.62631578947367,linear_regression
+2021,United States,Cancer,608261.8543859646,141.92192982456072,linear_regression
+2022,United States,Cancer,611149.8350877194,139.21754385964869,linear_regression
+2018,United States,Diabetes,78870.50877192977,19.863157894736787,linear_regression
+2019,United States,Diabetes,79389.43859649124,19.55789473684206,linear_regression
+2020,United States,Diabetes,79908.36842105258,19.25263157894733,linear_regression
+2021,United States,Diabetes,80427.29824561393,18.9473684210526,linear_regression
+2022,United States,Diabetes,80946.22807017551,18.642105263157873,linear_regression
+2018,United States,Heart disease,588991.2456140369,141.58421052631638,linear_regression
+2019,United States,Heart disease,583560.685964914,135.59263157894748,linear_regression
+2020,United States,Heart disease,578130.1263157912,129.6010526315804,linear_regression
+2021,United States,Heart disease,572699.5666666683,123.60947368421148,linear_regression
+2022,United States,Heart disease,567269.0070175454,117.61789473684257,linear_regression
+2018,United States,Influenza and pneumonia,50660.0877192982,12.170175438596516,linear_regression
+2019,United States,Influenza and pneumonia,49964.82807017537,11.570350877192823,linear_regression
+2020,United States,Influenza and pneumonia,49269.568421052536,10.970526315789357,linear_regression
+2021,United States,Influenza and pneumonia,48574.308771929704,10.370701754385891,linear_regression
+2022,United States,Influenza and pneumonia,47879.04912280687,9.770877192982425,linear_regression
+2018,United States,Kidney disease,52355.0877192982,13.480701754385962,linear_regression
+2019,United States,Kidney disease,53071.58070175443,13.42614035087719,linear_regression
+2020,United States,Kidney disease,53788.07368421042,13.37157894736842,linear_regression
+2021,United States,Kidney disease,54504.56666666665,13.317017543859649,linear_regression
+2022,United States,Kidney disease,55221.05964912288,13.262456140350878,linear_regression
+2018,United States,Stroke,125449.94736842113,30.063157894736833,linear_regression
+2019,United States,Stroke,123644.82105263183,28.53789473684219,linear_regression
+2020,United States,Stroke,121839.69473684253,27.01263157894755,linear_regression
+2021,United States,Stroke,120034.56842105277,25.487368421052906,linear_regression
+2022,United States,Stroke,118229.44210526347,23.96210526315781,linear_regression
+2018,United States,Suicide,46558.035087719094,13.719298245614084,linear_regression
+2019,United States,Suicide,47545.333333333256,13.910175438596525,linear_regression
+2020,United States,Suicide,48532.631578947185,14.101052631579023,linear_regression
+2021,United States,Suicide,49519.929824561346,14.291929824561464,linear_regression
+2022,United States,Suicide,50507.228070175275,14.482807017543905,linear_regression
+2018,United States,Unintentional injuries,155763.71929824539,44.90175438596498,linear_regression
+2019,United States,Unintentional injuries,158983.14385964908,45.43561403508784,linear_regression
+2020,United States,Unintentional injuries,162202.56842105184,45.9694736842107,linear_regression
+2021,United States,Unintentional injuries,165421.99298245553,46.50333333333333,linear_regression
+2022,United States,Unintentional injuries,168641.41754385922,47.03719298245619,linear_regression

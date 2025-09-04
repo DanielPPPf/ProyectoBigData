@@ -1,0 +1,19 @@
+{
+  "database": {
+    "host": "localhost",
+    "database": "deaths_analysis",
+    "user": "postgres",
+    "password": "postgres123",
+    "port": 5432
+  },
+  "data_paths": {
+    "input_csv": "data/NCHS__Leading_Causes_of_Death__United_States.csv",
+    "output_dir": "results"
+  },
+  "processing": {
+    "validate_data": true,
+    "create_dimensions": true,
+    "calculate_analytics": true,
+    "generate_reports": true
+  }
+}

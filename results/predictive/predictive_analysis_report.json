@@ -1,0 +1,154 @@
+{
+  "timestamp": "2025-09-04T12:57:10.161559",
+  "prediction_summary": {
+    "causes_modeled": 10,
+    "forecast_horizon_years": 5,
+    "average_r2_score": 0.7565427289499925,
+    "total_predictions": 50
+  },
+  "forecast_metrics": {
+    "Alzheimer's disease": {
+      "deaths_r2": 0.9280980900514753,
+      "deaths_mae": 4298.893628808817,
+      "rate_r2": 0.8150403471470984,
+      "rate_mae": 1.3360110803324101,
+      "data_points": 19
+    },
+    "CLRD": {
+      "deaths_r2": 0.9057559372507781,
+      "deaths_mae": 2982.179501385134,
+      "rate_r2": 0.5775078135974159,
+      "rate_mae": 0.6831394275161619,
+      "data_points": 19
+    },
+    "Cancer": {
+      "deaths_r2": 0.940017941268999,
+      "deaths_mae": 3576.4134810711503,
+      "rate_r2": 0.9981992296605472,
+      "rate_mae": 0.5397968605724881,
+      "data_points": 19
+    },
+    "Diabetes": {
+      "deaths_r2": 0.5082137745796204,
+      "deaths_mae": 2244.5521698984207,
+      "rate_r2": 0.811358374067394,
+      "rate_mae": 0.67811634349033,
+      "data_points": 19
+    },
+    "Heart disease": {
+      "deaths_r2": 0.5424602069847675,
+      "deaths_mae": 24443.433979686153,
+      "rate_r2": 0.9295126600811756,
+      "rate_mae": 8.109695290858854,
+      "data_points": 19
+    },
+    "Influenza and pneumonia": {
+      "deaths_r2": 0.5728907902637488,
+      "deaths_mae": 2807.665743305642,
+      "rate_r2": 0.9020015309138117,
+      "rate_mae": 0.9244136657432974,
+      "data_points": 19
+    },
+    "Kidney disease": {
+      "deaths_r2": 0.8019029092180728,
+      "deaths_mae": 1624.5739612188559,
+      "rate_r2": 0.13239295882610636,
+      "rate_mae": 0.6611634349030469,
+      "data_points": 19
+    },
+    "Stroke": {
+      "deaths_r2": 0.5248573019531447,
+      "deaths_mae": 8456.891966759007,
+      "rate_r2": 0.881887626165396,
+      "rate_mae": 2.7612188365651202,
+      "data_points": 19
+    },
+    "Suicide": {
+      "deaths_r2": 0.9775138644860131,
+      "deaths_mae": 684.4819944598099,
+      "rate_r2": 0.9475106457913111,
+      "rate_mae": 0.20439519852262408,
+      "data_points": 19
+    },
+    "Unintentional injuries": {
+      "deaths_r2": 0.8637164734433048,
+      "deaths_mae": 5378.6559556788325,
+      "rate_r2": 0.6563135415426279,
+      "rate_mae": 1.6707109879963185,
+      "data_points": 19
+    }
+  },
+  "advanced_model_metrics": {},
+  "risk_assessment": [
+    {
+      "cause_name": "Alzheimer's disease",
+      "predicted_deaths_change_pct": 12.64534255555991,
+      "predicted_rate_change_pct": 8.054871614491482,
+      "risk_level": "Alto",
+      "avg_annual_deaths": 122317.53684210517
+    },
+    {
+      "cause_name": "Suicide",
+      "predicted_deaths_change_pct": 8.482301658597883,
+      "predicted_rate_change_pct": 5.565217391304303,
+      "risk_level": "Medio",
+      "avg_annual_deaths": 48532.63157894723
+    },
+    {
+      "cause_name": "Unintentional injuries",
+      "predicted_deaths_change_pct": 8.267456827322238,
+      "predicted_rate_change_pct": 4.755802141126785,
+      "risk_level": "Medio",
+      "avg_annual_deaths": 162202.56842105222
+    },
+    {
+      "cause_name": "Kidney disease",
+      "predicted_deaths_change_pct": 5.4741039594672944,
+      "predicted_rate_change_pct": -1.6189484643414593,
+      "risk_level": "Medio",
+      "avg_annual_deaths": 53788.07368421052
+    },
+    {
+      "cause_name": "CLRD",
+      "predicted_deaths_change_pct": 5.401507687825358,
+      "predicted_rate_change_pct": -1.985975240238878,
+      "risk_level": "Medio",
+      "avg_annual_deaths": 162161.58947368432
+    },
+    {
+      "cause_name": "Diabetes",
+      "predicted_deaths_change_pct": 2.631806654434171,
+      "predicted_rate_change_pct": -6.147323794382467,
+      "risk_level": "Medio",
+      "avg_annual_deaths": 79908.36842105261
+    },
+    {
+      "cause_name": "Cancer",
+      "predicted_deaths_change_pct": 1.9266115792628467,
+      "predicted_rate_change_pct": -7.2100093545369255,
+      "risk_level": "Medio",
+      "avg_annual_deaths": 605373.8736842101
+    },
+    {
+      "cause_name": "Heart disease",
+      "predicted_deaths_change_pct": -3.6880409952181177,
+      "predicted_rate_change_pct": -16.92725177502697,
+      "risk_level": "Bajo",
+      "avg_annual_deaths": 578130.1263157912
+    },
+    {
+      "cause_name": "Influenza and pneumonia",
+      "predicted_deaths_change_pct": -5.4896047790141,
+      "predicted_rate_change_pct": -19.71457402335345,
+      "risk_level": "Bajo",
+      "avg_annual_deaths": 49269.568421052536
+    },
+    {
+      "cause_name": "Stroke",
+      "predicted_deaths_change_pct": -5.755686163783307,
+      "predicted_rate_change_pct": -20.294117647059082,
+      "risk_level": "Bajo",
+      "avg_annual_deaths": 121839.69473684234
+    }
+  ]
+}
