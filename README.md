@@ -71,13 +71,8 @@ Este proyecto implementa un pipeline completo de Big Data que procesa datos hist
 
 ### Software Base
 - **Docker** >= 20.10.0 y Docker Compose >= 1.29.0
-- **Python** >= 3.8 (recomendado: Miniconda/Anaconda)
+- **Python** >= 3.8 (recomendado: Conda)
 - **Navegador web** moderno (Chrome, Firefox, Safari)
-
-### Hardware Mínimo
-- **RAM:** 8 GB (recomendado: 16 GB)
-- **Almacenamiento:** 2 GB libres
-- **CPU:** 2 núcleos (recomendado: 4+ núcleos)
 
 ### Puertos Requeridos
 - **5432:** PostgreSQL
@@ -102,7 +97,7 @@ mkdir -p data scripts init-db results config
 
 ```bash
 # Con conda (recomendado)
-conda create -n mortality-analysis python=3.9
+conda create -n mortality-analysis python=3.11 
 conda activate mortality-analysis
 
 # Instalar paquetes principales
@@ -116,7 +111,7 @@ pip install matplotlib seaborn plotly streamlit
 
 ### 3. Obtener Dataset
 
-Descargar el archivo CSV desde:
+Descargar el archivo CSV o descargarlo desde el repositorio:
 - **URL:** https://data.cdc.gov/NCHS/NCHS-Leading-Causes-of-Death-United-States/bi63-dtpu
 - **Archivo:** `NCHS__Leading_Causes_of_Death__United_States.csv`
 - **Ubicación:** Colocar en carpeta `data/`
